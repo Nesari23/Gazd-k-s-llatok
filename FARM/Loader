@@ -1,0 +1,41 @@
+import csv
+
+class Loader:
+    import csv
+import pymysql
+
+
+conn = pymysql.connect(
+    host="localhost",
+    port=3306,
+    user="root",
+    password="",
+    database="FARM"
+)
+cursor = conn.cursor()
+
+
+gazda_csv_file = "Gazda_Gazda"
+hazi_allatok_csv_file = "HaziAllatok_HaziAllatok"
+
+
+with open(gazda_csv_file, 'r', newline='', encoding='utf-8') as file:
+    reader = csv.reader(file)
+    next(reader)  
+    for row in reader:
+        cursor.execute("INSERT INTO Gazda (Nev, Eletkor) VALUES (%s, %s)", (row[0], int(row[1])))
+conn.commit()
+
+
+with open(hazi_allatok_csv_file, 'r', newline='', encoding='utf-8') as file:
+    reader = csv.reader(file)
+    next(reader)  
+    for row in reader:
+        cursor.execute("INSERT INTO HaziAllatok (Nev, Fajta, GazdaId) VALUES (%s, %s, %s)", (row[0], row[1], int(row[2])))
+conn.commit()
+
+
+cursor.close()
+conn.close()
+
+print("Adatok betöltése sikeresen megtörtént!")

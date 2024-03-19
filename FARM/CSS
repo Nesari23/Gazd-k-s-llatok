@@ -1,0 +1,14 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gazda {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.hazi-allatok {
+    display: none;
+    margin-left: 20px;
+}
